@@ -50,7 +50,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "5ad2b28b",
+   "id": "95a3e1d0",
    "metadata": {},
    "source": [
     "# Goals <a id=\"goals\"></a>\n",
@@ -60,7 +60,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "792d4899",
+   "id": "8042cf45",
    "metadata": {},
    "source": [
     "# Acquire\n",
@@ -93,7 +93,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "c2527328",
+   "id": "eebbc39b",
    "metadata": {},
    "source": [
     "# Prepare\n",
@@ -122,7 +122,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "be6c9072",
+   "id": "23c01857",
    "metadata": {},
    "source": [
     "# Data Dictionary"
@@ -131,7 +131,7 @@
   {
    "cell_type": "code",
    "execution_count": 57,
-   "id": "33d6a73b",
+   "id": "950f9b43",
    "metadata": {},
    "outputs": [
     {
@@ -158,7 +158,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "e86cedb8",
+   "id": "eeea1de7",
    "metadata": {},
    "source": [
     "| Name             | Definition |\n",
@@ -177,7 +177,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "be2f90a6",
+   "id": "60d76a53",
    "metadata": {},
    "source": [
     "# Explore"
@@ -186,7 +186,7 @@
   {
    "cell_type": "code",
    "execution_count": 59,
-   "id": "6df4db84",
+   "id": "c879a0e6",
    "metadata": {},
    "outputs": [
     {
@@ -2052,7 +2052,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "b74e7375",
+   "id": "d07fab81",
    "metadata": {},
    "source": [
     "# Model"
@@ -2363,7 +2363,7 @@
   {
    "cell_type": "code",
    "execution_count": 51,
-   "id": "227a20fe",
+   "id": "b983432e",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -2469,12 +2469,73 @@
    ]
   },
   {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1834b969",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "score_chart = pd.DataFrame({'model':['baseline','linear','lasso_lars','Tweedie'],'score':[validate_baseline_rmse,validate_linear_rmse,validate_lasso_lars_rmse,validate_tweedie_rmse]})\n",
+    "plt.bar(score_chart['model'],score_chart['score'],color=['grey', 'lightblue', 'lightblue', 'firebrick'])\n",
+    "plt.axhline(y = score_chart[\"score\"].min(), color = 'firebrick', linestyle = '--')\n",
+    "plt.title(\"Validate - Model RMSE Scores\")\n",
+    "plt.xlabel('Linear Models')\n",
+    "plt.ylabel('Score')\n",
+    "plt.show()"
+   ]
+  },
+  {
    "cell_type": "markdown",
    "id": "999b6d4f",
    "metadata": {},
    "source": [
     "# Test\n",
     "[Imports](#imports) - [Definitions](#definitions) - [Acquire](#acquire) - [Explore](#explore)  -  [Model](#model)  -  [Evaluate](#evaluate)  -  [Test](#test)  -  [Summary](#summary)  -  [Take Aways](#takeaways)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3435be35",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Baseline\n",
+    "test_preds = pd.DataFrame()\n",
+    "test_preds['actual'] = y_validate\n",
+    "test_preds['baseline'] = y_validate.mean()\n",
+    "test_preds['linear'] = lm.predict(X_validate_scaled)\n",
+    "test_preds['lasso_lars'] = lars.predict(X_validate_lasso_scale)\n",
+    "test_preds['Tweedie'] = glm.predict(X_validate_scaled)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d8a68c04",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "test_baseline_rmse = (sqrt(mean_squared_error(test_preds['actual'], test_preds['baseline'])))\n",
+    "test_linear_rmse = (sqrt(mean_squared_error(test_preds['actual'], test_preds['linear'])))\n",
+    "test_lasso_lars_rmse = (sqrt(mean_squared_error(test_preds['actual'], test_preds['lasso_lars'])))\n",
+    "test_tweedie_rmse = (sqrt(mean_squared_error(test_preds['actual'], test_preds['Tweedie'])))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3b9daf56",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "score_chart = pd.DataFrame({'model':['baseline','linear','lasso_lars','Tweedie'],'score':[test_baseline_rmse,test_linear_rmse,test_lasso_lars_rmse,test_tweedie_rmse]})\n",
+    "plt.bar(score_chart['model'],score_chart['score'],color=['grey', 'lightblue', 'lightblue', 'firebrick'])\n",
+    "plt.axhline(y = score_chart[\"score\"].min(), color = 'firebrick', linestyle = '--')\n",
+    "plt.title(\"Test - Model RMSE Scores\")\n",
+    "plt.xlabel('Linear Models')\n",
+    "plt.ylabel('Score')\n",
+    "plt.show()"
    ]
   },
   {
@@ -2489,7 +2550,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "4e88c6da",
+   "id": "28324d75",
    "metadata": {},
    "source": [
     "# Conclusion <a id=\"conclusion\"></a>\n",
@@ -2499,13 +2560,12 @@
     "\n",
     "### Modeling\n",
     "\n",
-    "* Out of the Random Forest, KNN, and Logistic Regression models Random Forest performed higher than baseline on train and validate\n",
-    "* The Logistic Regression model performed slightly better on validate data but was worse than baseline on either one."
+    "* Tweedie Regressor only beat linear regression by 2 thousandths"
    ]
   },
   {
    "cell_type": "markdown",
-   "id": "86b2e97a",
+   "id": "26094be9",
    "metadata": {},
    "source": [
     "# Takeaways <a id=\"takeaways\"></a>\n",
@@ -2514,7 +2574,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "17fd3d98",
+   "id": "4c60a875",
    "metadata": {},
    "source": [
     "* explicit, energy, loudness were key drivers for time on chart"
@@ -2522,7 +2582,24 @@
   },
   {
    "cell_type": "markdown",
-   "id": "73f5e696",
+   "id": "ff31104b",
+   "metadata": {},
+   "source": [
+    "# Recommendations <a id=\"recommendations\"></a>\n",
+    "[Imports](#imports) - [Definitions](#definitions) - [Acquire](#acquire) - [Explore](#explore)  -  [Model](#model)  -  [Evaluate](#evaluate)  -  [Test](#test)  -  [Summary](#summary)  -  [Take Aways](#takeaways)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "4f39b57f",
+   "metadata": {},
+   "source": [
+    "* Explore different approach to loudness and energy instaead of compression"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5c2a68a8",
    "metadata": {},
    "source": [
     "# Next Steps <a id=\"takeaways\"></a>\n",

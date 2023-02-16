@@ -50,7 +50,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "9bc92216",
+   "id": "eded646f",
    "metadata": {},
    "source": [
     "# Goals <a id=\"goals\"></a>\n",
@@ -60,7 +60,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "6ae05c68",
+   "id": "ff4aac1d",
    "metadata": {},
    "source": [
     "# Acquire\n",
@@ -93,7 +93,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "c1a4fda6",
+   "id": "caeda059",
    "metadata": {},
    "source": [
     "# Prepare\n",
@@ -125,7 +125,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "740e32d3",
+   "id": "1c0abc25",
    "metadata": {},
    "source": [
     "# Data Dictionary"
@@ -134,7 +134,7 @@
   {
    "cell_type": "code",
    "execution_count": 57,
-   "id": "fd776a10",
+   "id": "bdc369d6",
    "metadata": {},
    "outputs": [
     {
@@ -161,7 +161,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "5f8eb951",
+   "id": "a8a45d2e",
    "metadata": {},
    "source": [
     "| Name             | Definition |\n",
@@ -180,7 +180,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "cf76f909",
+   "id": "118ea08f",
    "metadata": {},
    "source": [
     "# Explore"
@@ -189,7 +189,7 @@
   {
    "cell_type": "code",
    "execution_count": 59,
-   "id": "9a8969d9",
+   "id": "eb38a906",
    "metadata": {},
    "outputs": [
     {
@@ -2055,7 +2055,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "151841c9",
+   "id": "cb96daca",
    "metadata": {},
    "source": [
     "# Model"
@@ -2366,7 +2366,7 @@
   {
    "cell_type": "code",
    "execution_count": 51,
-   "id": "e3ca5b93",
+   "id": "07c5f61a",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -2492,15 +2492,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "b07c27ce",
+   "id": "cb61cd42",
    "metadata": {},
    "source": [
     "# Conclusion <a id=\"conclusion\"></a>\n",
     "### Exploration\n",
     "\n",
-    "* Total churn = 1869 out of 7043 customers.\n",
-    "* 26.5% Churned\n",
-    "* 73.5% Not Churned\n",
+    "* 1100 observations\n",
     "\n",
     "### Modeling\n",
     "\n",
@@ -2510,7 +2508,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "0e73983f",
+   "id": "69c49b04",
    "metadata": {},
    "source": [
     "# Takeaways <a id=\"takeaways\"></a>\n",
@@ -2519,7 +2517,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "cb8e6fab",
+   "id": "a0911d5c",
    "metadata": {},
    "source": [
     "* explicit, energy, loudness were key drivers for time on chart"
@@ -2527,7 +2525,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "8332fb7f",
+   "id": "9192eed6",
    "metadata": {},
    "source": [
     "# Next Steps <a id=\"takeaways\"></a>\n",

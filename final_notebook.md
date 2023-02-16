@@ -50,7 +50,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "9bc92216",
+   "id": "5ad2b28b",
    "metadata": {},
    "source": [
     "# Goals <a id=\"goals\"></a>\n",
@@ -60,7 +60,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "6ae05c68",
+   "id": "792d4899",
    "metadata": {},
    "source": [
     "# Acquire\n",
@@ -93,22 +93,19 @@
   },
   {
    "cell_type": "markdown",
-   "id": "c1a4fda6",
+   "id": "c2527328",
    "metadata": {},
    "source": [
     "# Prepare\n",
     "\n",
     "**Prepare Actions:**\n",
     "* Removed columns that did not contain useful information\n",
-    "* Removed duplicate columns due to larger SQL Query\n",
-    "* Checked for nulls in the data (there were none)\n",
+    "* Cleaned data due to complex naming\n",
+    "* Checked for nulls\n",
     "* Checked that column data types were appropriate\n",
-    "* Fixed incorrect dtatypes\n",
-    "* Added additional features to investigate:\n",
-    "    * Total Add-on Count\n",
+    "* Fixed incorrect datatypes\n",
     "* Encoded categorical bi-variate\n",
-    "* Created dummy variables for the multi-variate features\n",
-    "* Split data into train, validate and test (approx. 64/20/16), stratifying on 'churn'"
+    "* Split data into train, validate and test"
    ]
   },
   {
@@ -125,7 +122,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "740e32d3",
+   "id": "be6c9072",
    "metadata": {},
    "source": [
     "# Data Dictionary"
@@ -134,7 +131,7 @@
   {
    "cell_type": "code",
    "execution_count": 57,
-   "id": "fd776a10",
+   "id": "33d6a73b",
    "metadata": {},
    "outputs": [
     {
@@ -161,7 +158,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "5f8eb951",
+   "id": "e86cedb8",
    "metadata": {},
    "source": [
     "| Name             | Definition |\n",
@@ -180,7 +177,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "cf76f909",
+   "id": "be2f90a6",
    "metadata": {},
    "source": [
     "# Explore"
@@ -189,7 +186,7 @@
   {
    "cell_type": "code",
    "execution_count": 59,
-   "id": "9a8969d9",
+   "id": "6df4db84",
    "metadata": {},
    "outputs": [
     {
@@ -2055,7 +2052,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "151841c9",
+   "id": "b74e7375",
    "metadata": {},
    "source": [
     "# Model"
@@ -2366,7 +2363,7 @@
   {
    "cell_type": "code",
    "execution_count": 51,
-   "id": "e3ca5b93",
+   "id": "227a20fe",
    "metadata": {},
    "outputs": [],
    "source": [
@@ -2492,15 +2489,13 @@
   },
   {
    "cell_type": "markdown",
-   "id": "b07c27ce",
+   "id": "4e88c6da",
    "metadata": {},
    "source": [
     "# Conclusion <a id=\"conclusion\"></a>\n",
     "### Exploration\n",
     "\n",
-    "* Total churn = 1869 out of 7043 customers.\n",
-    "* 26.5% Churned\n",
-    "* 73.5% Not Churned\n",
+    "* 1100 observations\n",
     "\n",
     "### Modeling\n",
     "\n",
@@ -2510,7 +2505,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "0e73983f",
+   "id": "86b2e97a",
    "metadata": {},
    "source": [
     "# Takeaways <a id=\"takeaways\"></a>\n",
@@ -2519,7 +2514,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "cb8e6fab",
+   "id": "17fd3d98",
    "metadata": {},
    "source": [
     "* explicit, energy, loudness were key drivers for time on chart"
@@ -2527,7 +2522,7 @@
   },
   {
    "cell_type": "markdown",
-   "id": "8332fb7f",
+   "id": "73f5e696",
    "metadata": {},
    "source": [
     "# Next Steps <a id=\"takeaways\"></a>\n",

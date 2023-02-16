@@ -13,7 +13,7 @@ For this project I gathered Spotify music data, analyzing it for particular audi
 
 ## The Plan<br>
 #### Acquire data
-* Data was acquired from Kaggle & Github
+* Data was acquired from [Kaggle](https://www.kaggle.com/datasets/paradisejoy/top-hits-spotify-from-20002019) & [Github](https://github.com/HipsterVizNinja/random-data/tree/main/Music/hot-100)
 * Left merged Billboard dataset using unique key combined from features
 * Spotify dataset contained 2000 samples and 20 features
 * Billboard Hot 100 dataset contained 336_295 samples and 12 features

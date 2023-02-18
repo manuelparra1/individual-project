@@ -18,15 +18,13 @@ from sklearn.metrics import mean_squared_error, r2_score, explained_variance_sco
 
 from IPython.display import display, Markdown
 
-def load_csv_file(filename):
-    try:
-        if not os.path.exists(filename):
-            print(f"The file: {filename} doesn't exist")
-        else:
-            print("Found File")
-            return pd.concat([chunk for chunk in tqdm(pd.read_csv(filename, chunksize=1000), desc=f'Loading {filename}')])
-    except:
-        print("Didn't Work! :(")
+def load_csv(filename):
+    if os.path.exists(filename):
+        #return pd.read_csv(filename)
+        return pd.concat([chunk for chunk in tqdm(pd.read_csv(filename, chunksize=1000), desc=f'Loading {filename}')])
+
+    else:
+        return None
 
 def rename_columns(df):
     new_names = []
@@ -88,7 +86,7 @@ def flatten(list_nd):
 
 def split_data(df):
     '''
-    This function take in a dataframe and splits into train validate test
+    This function takes in a dataframe and splits into train validate test
     '''
     
     # create train_validate and test datasets
@@ -117,8 +115,8 @@ def isolate_target(df, target):
     return X,y
 
 def dummies(df,dummies):
-    # keeper columns are numerical & discrete chosen
-    # for dummy creation
+    # keeper column names are the numerical colums
+    # & discrete columns chosen for dummy creation
     numerical = df.select_dtypes('number').columns
     keepers = df[numerical].columns.to_list()
     keepers.append(dummies)
@@ -129,7 +127,7 @@ def dummies(df,dummies):
     # Create dummies for non-binary categorical columns
     df[dummies]=pd.get_dummies(df[dummies], drop_first = True)
     
-    # drop redundant column
+    # drop extraneous columns
     df = df.drop(df.columns.difference(keepers),axis=1)
     
     return df
@@ -137,9 +135,10 @@ def dummies(df,dummies):
 def eval_results(p, alpha, group1, group2):
     '''
         Test Hypothesis  using Statistics Test Output.
-        This function will take in the p-value, alpha, and a name for the 2 variables
-        you are comparing (group1 and group2) and return a string stating 
-        whether or not there exists a relationship between the 2 groups. 
+        This function will take in the p-value, alpha, and 
+        names for the 2 variables you are comparing (group1 and group2)
+        and return a string stating whether or not there exists 
+        a relationship between the 2 groups. 
     '''
     if p < alpha:
         display(Markdown(f"### Results:"))
@@ -200,15 +199,18 @@ def scale_data(df,mode="minmax"):
         return df
     
     else:
-        print("write new code")
+        print("write new code ya lazy bastard")
 
 def num_vs_num_visualize(df,feature,target):
     question = f"Does a higher {feature} mean higher {target}?"
+    
+    # write arguments for function to choose plot or 
+    # randomly select it...ya lazy bastard
+    #
+    # sns.scatterplot(x=df[feature], y=df[target])
+    # plt.suptitle(f"{question}")
 
-    #sns.scatterplot(x=df[feature], y=df[target])
-    #plt.suptitle(f"{question}")
-
-    #plt.show()
+    # plt.show()
     
     sns.jointplot(data=df, x=feature, y=target,  kind='reg', height=8)
     plt.show()
@@ -317,6 +319,8 @@ def model():
     print("You write model code now!")
 
 def clean(hot_100,spotify_popular):
+    # H O T  1 0 0  D A T A
+    # =====================
     # date type column
     hot_100['chart_date']=pd.to_datetime(hot_100['chart_date'])
 
@@ -368,7 +372,9 @@ def clean(hot_100,spotify_popular):
     merged_hot100_only_latest['song_index'] = merged_hot100_only_latest['song_index'].str.replace('[^0-9a-z-A-Z]', '')
     merged_hot100_only_latest['song_index'] = merged_hot100_only_latest['song_index'].str.replace('*', '')
     merged_hot100_only_latest['song_index'] = merged_hot100_only_latest['song_index'].str.replace('-', ' - ')
-
+    
+    # S P O T I F Y   D A T A 
+    # =======================
     spotify_popular['1st_split']=spotify_popular['artist'].str.split('&').str[0]
     spotify_popular['2nd_split']=spotify_popular['1st_split'].str.split('With').str[0]
     spotify_popular['3rd_split']=spotify_popular['2nd_split'].str.split('Featuring').str[0]
@@ -377,17 +383,18 @@ def clean(hot_100,spotify_popular):
     spotify_popular = spotify_popular.drop(columns = ['1st_split','2nd_split','3rd_split','4th_split'])
     spotify_popular['song'] = spotify_popular['song'].str.replace('[^0-9a-z - A-Z]', '')
     spotify_popular['song_index'] = spotify_popular['performer'].str.lower() + ' - ' + spotify_popular['song'].str.lower()
+    
+    # standardization for both datasets song_index 
     spotify_popular['song_index'] = spotify_popular['song_index'].str.replace('[^0-9a-z-A-Z]', '')
     spotify_popular['song_index'] = spotify_popular['song_index'].str.replace('*', '')
     spotify_popular['song_index'] = spotify_popular['song_index'].str.replace('-', ' - ')
 
     # M E R G E
-    new_spotify_merge = spotify_popular.merge(merged_hot100_only_latest,how='left',on='song_index')
+    merged_data = spotify_popular.merge(merged_hot100_only_latest,how='left',on='song_index')
 
     # N U L L S
-    merged_data_non_nulls = new_spotify_merge.dropna()
+    merged_data_non_nulls = merged_data.dropna()
     merged_data_non_nulls.rename(columns = {'song_x':'song'}, inplace = True)
-    merged_data_non_nulls.columns
     merged_data_non_nulls=merged_data_non_nulls.drop(columns=['is_unique','singer'])
     merged_data_non_nulls=merged_data_non_nulls.drop(columns=['performer_x', 'song_index', 'song_y', 'performer_y'])
 
@@ -396,13 +403,36 @@ def clean(hot_100,spotify_popular):
     
     return merged_data_non_nulls
 
-def acquire():
-    hot_100 = pd.read_csv("hot_100.csv")
-    spotify_popular = pd.read_csv("songs_normalize.csv")
+def get_data(file_name, url=None):
+    data = load_csv(file_name)
+    if data is None:
+        if url is None:
+            raise ValueError(f"File '{file_name}' does not exist and no URL was provided.")
+        data = pd.read_csv(url)
+        data.to_csv(file_name, index=False)
+    if data is None:
+        raise ValueError(f"File '{file_name}' does not exist and could not be downloaded.")
+        
+    return data
 
-    df = clean(hot_100,spotify_popular)
+def get_spotify_data():
+    file = 'songs_normalize.csv'
     
-    return df
+    return get_data(file)
+
+def get_hot_100_data():
+    file = "Hot%20100.csv"
+    url = 'https://raw.githubusercontent.com/HipsterVizNinja/random-data/main/Music/hot-100/Hot%20100.csv'
+    
+    return get_data(file,url)
+
+def acquire_all():
+    spotify = get_spotify_data()
+    hot_100 = get_hot_100_data()
+    
+    merged_clean = clean(hot_100,spotify)
+    
+    return merged_clean
 
 def scrub(df):
     
